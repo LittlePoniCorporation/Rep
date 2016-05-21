@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersResults">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+@{ var awardId = Request["id"];
+    Guid id;
+    if (!Guid.TryParse(awardId, out id))
+    {
+        Response.Redirect("~/Pages/UsersResults");
+        return;
+    }
+    var user = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers().Get(id);
+    }
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<form action="~/Pages/User/Change?userId=@awardId" method="post">
+    <label for="Surname">Фамилия</label>
+    <input type="text" id="Surname" name="Surname" value=@user.Surname required>
+    <label for="Name">Имя</label>
+    <input type="text" id="Name" name="Name" value=@user.Name required>
+    <label for="SecondName">Отчество</label>
+    <input type="text" id="SecondName" name="SecondName" value=@user.Second_Name required>
+    <label for="BDay">День рождения</label>
+    <input type="date" id="BDay" name="BDay" value=@user.BDay required>
+    <input type="submit" name="Ok" value="OK" />
+</form>

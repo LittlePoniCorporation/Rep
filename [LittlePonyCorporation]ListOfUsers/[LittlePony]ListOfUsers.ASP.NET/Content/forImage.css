@@ -1,0 +1,11 @@
+﻿.images{
+    width:60px;
+    height:auto;
+    vertical-align:central;
+}
+.image{
+    width:60px;
+    height:60px;
+    overflow:hidden;
+    box-shadow:0 0 5px;
+}

@@ -1,0 +1,31 @@
+﻿@if (IsPost)
+{
+    var userId = Request["userId"];
+    var Surname = Request["Surname"];
+    var Name = Request["Name"];
+    var SecondName = Request["SecondName"];
+    var Bday = Request["BDay"];
+    Guid id;
+
+    if (string.IsNullOrWhiteSpace(Surname) || string.IsNullOrWhiteSpace(Name) || (string.IsNullOrWhiteSpace(SecondName) & SecondName != null) || Bday == null || !Guid.TryParse(userId,out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    var newuser = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers();
+    if (newuser.Change(id, Surname, Name, SecondName, DateTime.Parse(Bday)))
+    {
+        Response.Redirect("~/Pages/UserResults");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+else
+{
+    Response.Redirect("~/Pages/UsersAndAwards");
+}

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/AwardResults">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+@{
+    var awardId = Request["id"];
+    Guid id;
+
+    if (string.IsNullOrWhiteSpace(awardId) || !Guid.TryParse(awardId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    Guid uId = Guid.Parse(awardId);
+    var arr = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRelation().GetAllUsers(uId).ToArray();
+
+    if (arr == null)
+    {
+        Response.SetStatus(HttpStatusCode.Conflict);
+        return;
+    }
+    else
+    {
+        var userInfo = new _LittlePony_ListOfUsers.ASP.NET.Models.ListAwards().Get(uId);
+        <table>
+            <tr>
+                <td>@userInfo.Title</td>
+            </tr>
+            @if (arr.Length == 0)
+            {
+                <tr>
+                    <td>Этой нагарды нет ни у одного пользователя</td>
+                </tr>
+            }
+            else
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@arr[i].Surname @arr[i].Name @arr[i].Second_Name</td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+}

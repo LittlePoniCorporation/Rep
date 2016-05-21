@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forTable.css" rel="stylesheet" />
+<link href="~/Content/forImage.css" rel="stylesheet" />
+<table>
+    @{ var allawards = new _LittlePony_ListOfUsers.ASP.NET.Models.ListAwards();
+        var arrayawards = allawards.GetAll().ToArray();
+        var allusers = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers().GetAll().ToArray();
+        var images = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();
+        for (int i = 0; i < arrayawards.Length; i++)
+        {
+            <tr>
+                <td>
+                    @{ Guid awardImage = images.GetImageForEntites(arrayawards[i].Id, "A");}
+                    <div class="image">
+                        @if (awardImage != default(Guid))
+                        {
+                            <a href="~/Pages/Image/Download?id=@awardImage">
+                                <img class="images" src="~/Pages/Image/View?id=@awardImage" />
+                            </a>
+                        }
+                        else
+                        {
+                            Guid d = Guid.Parse("9b028a6b-eb00-4c29-a772-e11afe100689");
+                            <a href="~/Pages/Image/Download?id=@d">
+                                <img class="images" src="~/Pages/Image/View?id=@d" />
+                            </a>
+                        }
+                    </div>
+                </td>
+                <td class="big">@arrayawards[i].Title</td>
+                <td>
+                    <section class="button"><a href="~/Pages/AwardChange?id=@arrayawards[i].Id&title=@arrayawards[i].Title">изменить</a></section>
+                </td>
+                <td class="little">
+                    <form action="~/Pages/Award/Delete?id=@arrayawards[i].Id" method="post">
+                        <button type="submit" onclick="return confirm('Удалить?')">x</button>
+                    </form>
+                </td>
+                <td><section class="button"><a href="~/Pages/Award/WhoHave?id=@arrayawards[i].Id">у кого</a></section></td>
+                <td>
+                    <section class="button"><a href="~/Pages/Image/AddImage?id=@arrayawards[i].Id&AorU=A">+картинка</a></section>
+                </td>
+            </tr>
+                        }
+    }
+</table>

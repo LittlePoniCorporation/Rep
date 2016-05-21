@@ -1,0 +1,23 @@
+﻿@{ 
+    var Login = Request["Login"];
+    var RoleId = Request["RoleId"];
+    int id;
+    if (string.IsNullOrWhiteSpace(Login) || string.IsNullOrWhiteSpace(RoleId) || !int.TryParse(RoleId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    var registaredUsers = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRegistrate().Change(Login, id);
+
+    if (registaredUsers)
+    {
+        Response.Redirect("~/Pages/Registration/RegistaredUsers");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}

@@ -1,0 +1,41 @@
+﻿@if (IsPost)
+{
+    var login = Request["Login"];
+    var Pass = Request["Password"];
+
+    if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(Pass))
+    {
+        Response.Redirect("~/Pages/Index.cshtml");
+        return;
+    }
+
+    var userInBase = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRegistrate().Get(login);
+
+    if (userInBase == null)
+    {
+        Response.Redirect("~/Pages/Registration.cshtml");
+        return;
+    }
+    else
+    {
+        if (userInBase.Password != Pass)
+        {
+            Response.Redirect("~/Pages/Index.cshtml");
+            return;
+        }
+        if (userInBase.RoleId == 1)
+        {
+            Response.Redirect("~/Pages/UsersAndAwards.cshtml");
+            return;
+        }
+        else
+        {
+            Response.Redirect("~/Pages/UserResults.cshtml?Role=2");
+        }
+    }
+}
+else
+{
+    Response.Redirect("~/Pages/Index.cshtml");
+}
+

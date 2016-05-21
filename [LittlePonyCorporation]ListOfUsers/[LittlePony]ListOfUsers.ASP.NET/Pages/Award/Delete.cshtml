@@ -1,0 +1,26 @@
+﻿@{
+    var awardId = Request["id"];
+    Guid id;
+    if (string.IsNullOrWhiteSpace(awardId) || !Guid.TryParse(awardId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    var award = new _LittlePony_ListOfUsers.ASP.NET.Models.ListAwards();
+    if (award.Delete(id))
+    {
+        var image = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();
+        Guid imageId = image.GetImageForEntites(id, "A");
+        if (imageId != default(Guid))
+        {
+            image.Delete(imageId);
+        }
+        Response.Redirect("~/Pages/AwardResults");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}

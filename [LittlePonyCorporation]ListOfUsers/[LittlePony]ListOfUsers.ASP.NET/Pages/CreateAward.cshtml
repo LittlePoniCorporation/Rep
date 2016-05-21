@@ -1,0 +1,13 @@
+﻿@{ 
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<form action="~/Pages/Award/Create" method="post">
+    <label for="Title">Название награды</label>
+    <input type="text" id="Title" name="Title" required>
+    <input type="submit" name="Ok" value="OK" />
+</form>

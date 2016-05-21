@@ -1,0 +1,35 @@
+﻿@if (!IsPost)
+{
+    Response.SetStatus(HttpStatusCode.NotFound);
+    return;
+}
+@{
+    var file = Request.Files["uploaded"];
+    var idfi = Request["idfi"];
+    var AorU = Request["AorU"];
+    Guid id;
+    if (string.IsNullOrWhiteSpace(idfi) || string.IsNullOrWhiteSpace(AorU) || !Guid.TryParse(idfi, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    if (file == null || file.ContentLength == 0)
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    byte[] imageContent = new byte[file.ContentLength];
+    file.InputStream.Read(imageContent, 0, imageContent.Length);
+    var imageFile = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();
+    Guid img = Guid.NewGuid();
+    imageFile.Create(new _LittlePony_Entites.Image(img, imageContent, file.ContentType));
+    Guid oldImgId = imageFile.GetImageForEntites(id, AorU);
+    if (oldImgId!=default(Guid))
+    {
+        imageFile.Delete(oldImgId);
+    }
+    imageFile.AddImage(id, img, AorU);
+    Response.Redirect("~/Pages/Image/AddImage?id=" + img);
+}

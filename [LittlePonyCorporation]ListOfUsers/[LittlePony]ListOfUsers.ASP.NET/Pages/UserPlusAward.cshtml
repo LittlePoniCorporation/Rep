@@ -1,0 +1,43 @@
+﻿@{
+    var userId = Request["uid"];
+    var awardId = Request["aid"];
+    var path = Request["path"];
+    Guid uId;
+    Guid aId;
+    if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(awardId) || !Guid.TryParse(userId, out uId) || !Guid.TryParse(awardId, out aId))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    var allrelations = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRelation().GetAllAwards(uId).ToArray();
+    int t = 0;
+    for (int i = 0; i < allrelations.Length; i++)
+    {
+        if (allrelations[i].Id == aId)
+        {
+            t++;
+        }
+    }
+
+    if (t == 0)
+    {
+        var relation = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRelation();
+        var relationadd = relation.Add(new _LittlePony_Entites.Relations(uId, aId));
+        if (relationadd)
+        {
+            Response.Redirect(path);
+            return;
+        }
+        else
+        {
+            Response.SetStatus(HttpStatusCode.BadRequest);
+            return;
+        }
+    }
+    else
+    {
+        Response.Redirect(path);
+        return;
+    }
+}

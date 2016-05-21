@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@{ 
+    var role = Request["Role"];
+}
+@section exit{
+    <a href="~/Pages/UserResults?Role=@role">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+@{
+    var userId = Request["id"];
+    Guid uId;
+
+    if (string.IsNullOrWhiteSpace(userId) || !Guid.TryParse(userId, out uId))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    var arr = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRelation().GetAllAwards(uId).ToArray();
+
+    var userInfo = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers().Get(uId);
+        <table>
+            <tr>
+                <td>@userInfo.Surname @userInfo.Name @userInfo.Second_Name</td>
+            </tr>
+            @if (arr.Length == 0)
+            {
+                <tr>
+                    <td>Пользователь не имеет наград</td>
+                </tr>
+            }
+            else
+            {
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@arr[i].Title</td>
+                    </tr>
+                }
+            }
+        </table>
+
+}

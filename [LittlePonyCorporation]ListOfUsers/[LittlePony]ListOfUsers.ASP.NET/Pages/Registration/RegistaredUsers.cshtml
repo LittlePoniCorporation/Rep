@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forTable.css" rel="stylesheet" />
+<link href="~/Content/UserResult.css" rel="stylesheet" />
+@{
+    var registaredUsers = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRegistrate().GetAll().ToArray();
+}
+<table>
+    @for (int i = 0; i < registaredUsers.Length; i++)
+    {
+        <tr>
+            <td>@(i + 1)</td>
+            @{var Login = registaredUsers[i].Login;}
+            <td>@Login</td>
+
+            <td class="little">
+                <ul>
+                    @if (registaredUsers[i].RoleId==1)
+                    {
+                    <li class="menu-top menu-top-style">
+                        <a href="#">Aдминистратор</a>
+                        <ul class="menu-inside menu-inside-style">
+                        <li><a href="~/Pages/Registration/Entitlement?Login=@Login&RoleId=2">Пользователь</a></li>
+                        </ul>
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="menu-top menu-top-style">
+                        <a href="#">Пользователь</a>
+                        <ul class="menu-inside menu-inside-style">
+                            <li><a href="~/Pages/Registration/Entitlement?Login=@Login&RoleId=1">Администратор</a></li>
+                        </ul>
+                    </li>
+                    }
+                </ul>
+            </td>
+        </tr>
+                }
+</table>

@@ -1,0 +1,19 @@
+﻿@{ 
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<form action="~/Pages/User/Create" method="post">
+    <label for="Surname">Фамилия</label>
+    <input type="text" id="Surname" name="Surname" required>
+    <label for="Name">Имя</label>
+    <input type="text" id="Name" name="Name" required>
+    <label for="SecondName">Отчество</label>
+    <input type="text" id="SecondName" name="SecondName" required>
+    <label for="BDay">День рождения</label>
+    <input type="date" id="BDay" name="BDay"required>
+    <input type="submit" name="Ok" value="OK" />
+</form>

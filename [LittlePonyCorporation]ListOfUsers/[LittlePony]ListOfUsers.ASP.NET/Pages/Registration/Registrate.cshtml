@@ -1,0 +1,29 @@
+﻿@if (IsPost)
+{
+    var login = Request["Login"];
+    var Pass1 = Request["Password1"];
+    var Pass2 = Request["Password2"];
+
+    if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(Pass1) || string.IsNullOrWhiteSpace(Pass2) || Pass1 != Pass2)
+    {
+        Response.Redirect("~/Pages/Registration.cshtml");
+        return;
+    }
+
+    var userInBase = new _LittlePony_ListOfUsers.ASP.NET.Models.ListRegistrate().Create(new _LittlePony_Entites.Registrate(login, Pass1, 2));
+
+    if (userInBase)
+    {
+        Response.Redirect("~/Pages/UserResults.cshtml?Role=2");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+else
+{
+    Response.Redirect("~/Pages/Index.cshtml");
+}

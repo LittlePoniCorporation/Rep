@@ -1,0 +1,16 @@
+﻿@{ 
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/Index">Назад</a>
+}
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<form action="~/Pages/Registration/Registrate" method="post">
+    <label for="Login">Логин</label>
+    <input type="text" name="Login" id="Login" required/>
+    <label for="Password1">Пароль</label>
+    <input type="password" name="Password1" id="Password1" required/>
+    <label for="Password2">Пароль ещё раз</label>
+    <input type="password" name="Password2" id="Password2" required/>
+    <input type="submit" name="ok" value="OK" />
+</form>

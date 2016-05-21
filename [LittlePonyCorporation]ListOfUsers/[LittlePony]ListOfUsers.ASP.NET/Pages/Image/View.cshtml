@@ -1,0 +1,19 @@
+﻿@{
+    var stringId = Request["id"];
+    Guid id;
+    if (string.IsNullOrWhiteSpace(stringId) || !Guid.TryParse(stringId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    var image = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage().Get(id);
+    if (image == null)
+    {
+        Response.SetStatus(HttpStatusCode.NotFound);
+        return;
+    }
+
+    Response.WriteBinary(image.Content, image.ContentType);
+    Response.AddHeader("Content-Disposition", $"inline; filename=\"img\"");
+}

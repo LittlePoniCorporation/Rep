@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{261366F7-153D-409B-AB89-611D09223ACC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_LittlePony_Awards.BLL</RootNamespace>
+    <AssemblyName>[LittlePony]Awards.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AwardBLL.cs" />
+    <Compile Include="UsersBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelationsBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{eb8f7cc8-08e6-4d0e-aacf-011ec1f40f75}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[LittelPony]Relations.Interfaces.DAL\[LittelPony]Interfaces.DAL.csproj">
+      <Project>{c719fbe1-e017-455c-a8bc-ed3986483d72}</Project>
+      <Name>[LittelPony]Interfaces.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[LittlePony]Awards.DAL\[LittlePony]DAL.csproj">
+      <Project>{d9d8ae00-6b89-49f0-bf10-79e7348f47ad}</Project>
+      <Name>[LittlePony]DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[LittlePony]Awards.Interfaces.Bll\[LittlePony]Interfaces.Bll.csproj">
+      <Project>{2d0cd0e3-476a-491a-b778-14033dc24bef}</Project>
+      <Name>[LittlePony]Interfaces.Bll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\[LittlePony]DAL.DB\[LittlePony]DAL.DB.csproj">
+      <Project>{8e0246bc-9a2c-49e9-9776-86ec5a7f1aed}</Project>
+      <Name>[LittlePony]DAL.DB</Name>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\[LittlePony]ListOfUsers.Entites\[LittlePony]Entites.csproj">
+      <Project>{3725879f-9e8a-477c-b735-1bef75f83e47}</Project>
+      <Name>[LittlePony]Entites</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,27 @@
+﻿@if (IsPost)
+{
+    var Title = Request["Title"];
+    var awardId = Request["awardId"];
+    Guid id;
+    if (string.IsNullOrWhiteSpace(Title) || !Guid.TryParse(awardId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+
+    var newaward = new _LittlePony_ListOfUsers.ASP.NET.Models.ListAwards();
+    if (newaward.Change(id, Title))
+    {
+        Response.Redirect("~/Pages/AwardResults");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}
+else
+{
+    Response.Redirect("~/Pages/UsersAndAwards");
+}

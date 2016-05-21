@@ -1,0 +1,94 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@{int role = 0;
+    var Role = Request["Role"];
+    if (Role != null)
+    {
+        role = int.Parse(Role);
+    }
+}
+@section exit{
+    @if (role == 1)
+    {
+        <a href="~/Pages/UsersAndAwards">Назад</a>
+    }
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forImage.css" rel="stylesheet" />
+<link href="~/Content/forTable.css" rel="stylesheet" />
+<link href="~/Content/UserResult.css" rel="stylesheet" />
+<table>
+    @{ var allusers = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers();
+        var arrayusers = allusers.GetAll().ToArray();
+        var images = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();
+        for (int i = 0; i < arrayusers.Length; i++)
+        {
+            <tr>
+                <td>
+                    @{ Guid userImage = images.GetImageForEntites(arrayusers[i].Id, "U");}
+                    <div class="image">
+                        @if (userImage != default(Guid))
+                        {
+                            <a href="~/Pages/Image/Download?id=@userImage">
+                                <img class="images" src="~/Pages/Image/View?id=@userImage" />
+                            </a>
+                        }
+                        else
+                        {
+                            Guid d = Guid.Parse("9b028a6b-eb00-4c29-a772-e11afe100689");
+                            <a href="~/Pages/Image/Download?id=@d">
+                                <img class="images" src="~/Pages/Image/View?id=@d" />
+                            </a>
+                        }
+                    </div>
+                </td>
+                <td class="big">@(arrayusers[i].Surname + " " + arrayusers[i].Name + " " + arrayusers[i].Second_Name)</td>
+
+                @if (role == 1)
+                {
+                    <td>
+                        <section class="button"><a href="~/Pages/UserChange?id=@arrayusers[i].Id">изменить</a></section>
+                    </td>
+
+                    <td class="little">
+                        <form action="~/Pages/User/Delete?id=@arrayusers[i].Id" method="post">
+                            <button type="submit" onclick="return confirm('Удалить?')">x</button>
+                        </form>
+                    </td>
+                }
+                @if (role != 0)
+                {
+                    <td>
+                        <section class="button"><a href="~/Pages/User/WhatHave?id=@arrayusers[i].Id&Role=@role">Все награды</a></section>
+                    </td>
+                }
+                @if(role==1){ 
+                    var allawards = new _LittlePony_ListOfUsers.ASP.NET.Models.ListAwards().GetAll().ToArray();
+                    string newpath = "~/Pages/UserResults";
+                    <td class="little">
+                        <ul>
+                            <li class="menu-top menu-top-style">
+                                <a href="#">+награда</a>
+                                <ul class="menu-inside menu-inside-style">
+                                    @for (int j = 0; j < allawards.Length; j++)
+                                    {
+                                        <li><a href="~/Pages/UserPlusAward?uid=@arrayusers[i].Id&aid=@allawards[j].Id&path=@newpath">@allawards[j].Title</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <section class="button">
+                            <a href="~/Pages/Image/AddImage?id=@arrayusers[i].Id&AorU=U">
+                                +картинка
+                            </a>
+                        </section>
+                    </td>
+                }
+
+            </tr>
+                        }
+    }
+</table>

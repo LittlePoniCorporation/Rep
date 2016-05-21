@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+@{ var awardId = Request["id"];
+    var awardTitle = Request["title"];
+    }
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<form action="~/Pages/Award/Change?awardId=@awardId" method="post">
+    <label for="Title">Название награды</label>
+    <input type="text" name="Title" value=@awardTitle required>
+    <input type="submit" name="Ok" value="OK" />
+</form>

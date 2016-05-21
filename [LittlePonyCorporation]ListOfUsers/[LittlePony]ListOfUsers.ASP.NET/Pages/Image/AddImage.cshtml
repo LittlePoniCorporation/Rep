@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Pages/_Layout.cshtml";
+}
+@section exit{
+    <a href="~/Pages/UsersAndAwards">Назад</a>
+    <a href="~/Pages/Index">Выйти</a>
+}
+<link href="~/Content/forForm.css" rel="stylesheet" />
+<link href="~/Content/forImage.css" rel="stylesheet" />
+@{var images = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();}
+@{
+    var IdForImage = Request["id"];
+    var AorU = Request["AorU"];
+}
+<form action="~/Pages/Image/Upload?idfi=@IdForImage&AorU=@AorU" method="post" enctype="multipart/form-data" role="form">
+    <div class="form-group">
+        <label for="uploaded" class="control-label"> Выберите картинку</label>
+        <input type="file" class="form-control" id="uploaded" name="uploaded" required />
+    </div>
+    <button type="submit" id="submit" class="btn btn-default">Загрузить</button>
+</form>

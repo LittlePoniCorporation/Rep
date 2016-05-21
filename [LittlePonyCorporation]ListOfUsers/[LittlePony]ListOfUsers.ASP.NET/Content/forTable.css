@@ -1,0 +1,42 @@
+﻿td{
+    font-size:14px;
+    font-weight:500;
+    color:#063f68;
+    margin-left:0;
+    margin-right:0;
+}
+
+tr {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.button {
+   -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    padding:1px 1px;
+    font-weight:500;
+    color:#063f68;
+}
+.button a{
+ text-decoration:none;
+ color:#063f68;
+ font-size:14px;
+}
+
+tr .little{
+    width:20px;
+}
+
+tr .big{
+    width:120px;
+}
+
+button {
+    background-color: #d0e4fa;
+    border-color: #063f68;
+    border-style: solid;
+    border-width:2px;
+}

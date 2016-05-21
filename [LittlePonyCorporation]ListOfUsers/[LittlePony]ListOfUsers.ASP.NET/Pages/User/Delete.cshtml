@@ -1,0 +1,26 @@
+﻿@{
+    var userId = Request["id"];
+    Guid id;
+    if (string.IsNullOrWhiteSpace(userId) || !Guid.TryParse(userId, out id))
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+    var award = new _LittlePony_ListOfUsers.ASP.NET.Models.ListUsers();
+    if (award.Delete(id))
+    {
+        var image = new _LittlePony_ListOfUsers.ASP.NET.Models.ListImage();
+        Guid imageId = image.GetImageForEntites(id, "U");
+        if (imageId != default(Guid))
+        {
+            image.Delete(imageId);
+        }
+        Response.Redirect("~/Pages/UserResults");
+        return;
+    }
+    else
+    {
+        Response.SetStatus(HttpStatusCode.BadRequest);
+        return;
+    }
+}
